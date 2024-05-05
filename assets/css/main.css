@@ -1,0 +1,130 @@
+/* Basic Layout and Background */
+body, html {
+    height: 100%;
+    margin: 0;
+    background-color: #000;
+    color: #fff;
+    font-family: 'Courier New', monospace;
+    background-size: 100% 2px, 3px 100%;
+}
+
+/* Text and Link Styling */
+a {
+    color: #ccc;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #fff;
+    border-bottom: 1px solid #fff;
+}
+
+/* Header and Navigation Styling */
+header {
+    padding: 10px 20px;
+    background-color: #000; /* maintain the background across all major elements */
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+/* Nav for mobile Hamburger */
+@media (max-width: 850px) {
+    nav ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        display: block;
+        margin: 5px 0;
+    }
+}
+
+/* Main Content Area */
+main {
+    margin: 20px auto;
+    max-width: 850px;
+}
+
+/* Main for mobile */
+@media (max-width: 850px) {
+    main {
+        margin: 1.5em;
+    }
+}
+
+/* Article and Text Styling */
+article {
+    margin: 20px 0;
+    padding: 10px;
+    border-bottom: 1px solid #fff;
+}
+
+article h1::before {
+    content: '.| ';
+}
+
+article h1::after {
+    content: ' |.';
+}
+
+article h3::before {
+    content: '> ';
+}
+
+article h2::before {
+    content: '// '; 
+}
+
+article h4::before {
+    content: '>> ';
+}
+
+h1 {
+    font-size: 1.5em;
+}
+
+h2 {
+    font-size: 1.25em;
+}
+
+/* Footer Styling */
+footer {
+    text-align: center;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    width: 100%;
+}
+
+/* Blinking Cursor Effect */
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}
+
+input[type="text"] {
+    font-family: 'Courier New', monospace;
+    font-size: 1em;
+    color: #fff;
+    background: none;
+    border: none;
+    border-bottom: 2px solid #fff;
+    animation: blink 1s step-end infinite;
+}
+
+:not(pre) > code {
+    color: #0BF40F;
+}

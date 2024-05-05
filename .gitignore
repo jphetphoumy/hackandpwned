@@ -33,3 +33,14 @@ test-results/
 playwright-report/
 
 .vscode/*
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+
+# Logs
+logs
+*.log
