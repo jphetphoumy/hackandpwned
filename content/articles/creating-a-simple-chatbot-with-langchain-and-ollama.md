@@ -1,6 +1,7 @@
 ---
 draft: false
 date: 06-05-2024
+tag: LLM
 ---
 
 # Creating a simple chatbot with Langchain and Ollama 
