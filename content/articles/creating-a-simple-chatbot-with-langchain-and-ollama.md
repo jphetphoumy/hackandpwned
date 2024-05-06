@@ -13,7 +13,7 @@ ___
 
 ## What is Retrieval-Augmented Generation (RAG) ?
 
-Retrieval-Augmented Generation, or RAG, is this super cool tech that supercharges large language models (LLMs) like the ones we use in AI chatbots and search engines. Basically, it makes AI responses smarter by pulling in fresh, relevant info from external sources right when you need it.
+Retrieval-Augmented Generation, or RAG, is this super cool technique that supercharges large language models (LLMs) like the ones we use in AI chatbots. Basically, it makes AI responses smarter by pulling in fresh, relevant info from external sources right when you need it.
 
 ### Why RAG Rocks for LLMS !
 
@@ -25,7 +25,9 @@ Here's why you might want to consider using RAG if you're messing around with AI
 
 In short, RAG is like giving your AI a mini-upgrade with each query, ensuring it's always on its A-game when answering questions or helping out users. It's a game-changer for making AI interactions a lot more reliable and useful.
 
-## Installation of the tools: Ollama, Langchain and Gradio
+## Installation of the tools: Ollama, Langchain
+
+Let's play a bit with python and Local LLMs. We will create a simple python application that will use **Ollama** and **Langchain** to create your custom chatbot.
 
 ### Creating the python project
 
@@ -115,9 +117,44 @@ load_dotenv()
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL")
 ```
 
-Now let's create the LLM.
+Now let's create the LLM and the prompt.
+
+With the code below, we can have a simple chatbot with a custom System prompt.
 
 ```python
+
+llm = Ollama(model="llama3", base_url=OLLAMA_BASE_URL)
+
+# Create the prompt template
+prompt_template = """<|system|You are an helpful Assistant. Your goal is to answer the user as best as you can<|end|>
+<|user|>What is the capital of france?<|end|><|assistant|>
+The capital of France is Paris<|end|>
+<|user|>{question}<|end|><|assistant|>
+"""
+
+prompt = PromptTemplate.from_template(prompt_template)
+chain = prompt | llm
+
+
+while True:
+    question = input("Ask me anything: ")
+    chunks = []
+    for chunk in chain.stream({question: question}):
+        print(chunk, end="")
+        chunks.append(chunk)
+```
+
+The full code woul be the following : 
+
+```python
+from langchain_community.llms import Ollama
+from langchain_core.prompts import PromptTemplate
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+# Define the base url for ollama
+OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL")
 
 llm = Ollama(model="phi3", base_url=OLLAMA_BASE_URL)
 
@@ -132,8 +169,10 @@ prompt = PromptTemplate.from_template(prompt_template)
 chain = prompt | llm
 
 
-chunks = []
-for chunk in chain.stream({question: "What is the color of the sky"}):
-    print(chunk, end="")
-    chunks.append(chunk)
+while True:
+    question = input("Ask me anything: ")
+    chunks = []
+    for chunk in chain.stream({question: question}):
+        print(chunk, end="")
+        chunks.append(chunk)
 ```

@@ -13,6 +13,8 @@ If you like the following topic :
 - **Devops**
 - **LLM**
 
-See the Latest blogpost I did here : [articles](/articles)
+This place is for you ! 
+
+You can read my latest post here : [articles](/articles)
 
 Happy hacking ;)
