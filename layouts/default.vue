@@ -9,21 +9,23 @@ const route = useRoute()
 
 // Detect issue number from route param (default to '01')
 const issue = computed(() => route.params.issue || '01')
+const localePrefix = computed(() => route.path.startsWith('/fr') ? 'fr/' : '')
 
 // Determine variant based on route path
 const variant = computed(() => {
-  if (route.path.startsWith('/zine')) return 'issue'
-  if (route.path.startsWith('/about')) return 'about'
+  if (route.path.match(/^\/(fr\/)?zine/)) return 'issue'
+  if (route.path.startsWith('/about') || route.path.startsWith('/fr/about')) return 'about'
   return 'home'
 })
 
 // Fetch metadata only if variant is 'issue'
 const { data: issueMeta } = await useAsyncData(
-  () => variant.value === 'issue' ? `zine-issue-${issue.value}` : null,
-  () => queryContent(`zine/${issue.value}`)
-    .where({ title: 'Introduction' })
-    .only(['subtitle', 'title'])
-    .findOne()
+  () => variant.value === 'issue' ? `zine-issue-${issue.value}-${localePrefix.value || 'en'}` : null,
+  () =>
+    queryContent(`${localePrefix.value}zine/${issue.value}`)
+      .where({ title: 'Introduction' })
+      .only(['subtitle', 'title'])
+      .findOne()
 )
 
 const subtitle = computed(() =>
