@@ -1,132 +1,92 @@
-/* Basic Layout and Background */
-body, html {
-    height: 100%;
-    margin: 0;
-    background-color: #000;
-    color: #fff;
-    font-family: 'Courier New', monospace;
-    background-size: 100% 2px, 3px 100%;
+:root {
+  /* Colors */
+  --color-bg: #111;
+  --color-text: #e0e0e0;
+  --color-muted: #ccc;
+  --color-link: #ccc;
+  --color-heading: #fafafa;
+  --color-border: #333;
+  --color-border-soft: #444;
+  --color-code-bg: #1a1a1a;
+  --color-footer: #aaa;
+
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 3rem;
+  --content-max-width: 800px;
+
+  /* Fonts */
+  --font-body: 'Fira Code', monospace;
+  --font-size-base: 1rem;
+  --font-size-small: 0.9rem;
+  --font-size-heading: 1.25rem;
+  --font-size-toc: 1.1rem;
+  --font-size-ascii: 0.95rem;
 }
 
-/* Text and Link Styling */
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  padding: var(--space-md);
+  max-width: var(--content-max-width);
+  margin: auto;
+  line-height: 1.6;
+}
+
 a {
-    color: #ccc;
-    text-decoration: none;
+  color: var(--color-link);
+  text-decoration: underline dotted;
 }
 
-a:hover {
-    color: #fff;
-    border-bottom: 1px solid #fff;
+pre.ascii {
+  white-space: pre;
+  line-height: 1.2;
+  margin-bottom: var(--space-md);
+  color: var(--color-muted);
+  font-size: var(--font-size-ascii);
 }
 
-/* Header and Navigation Styling */
-header {
-    padding: 10px 20px;
-    text-align: center;
+.toc {
+  margin-bottom: var(--space-lg);
+  border-left: 3px solid var(--color-border-soft);
+  padding-left: var(--space-sm);
 }
 
-nav ul {
-    list-style-type: none;
-    padding: 0;
+.toc h2 {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: var(--font-size-toc);
+  margin-bottom: var(--space-xs);
 }
 
-nav ul li {
-    display: inline;
-    margin-right: 10px;
-}
-
-/* Nav for mobile Hamburger */
-@media (max-width: 850px) {
-    nav ul {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    nav ul li {
-        display: block;
-        margin: 5px 0;
-    }
-}
-
-/* Main Content Area */
-main {
-    margin: 20px auto;
-    max-width: 850px;
-}
-
-/* Main for mobile */
-@media (max-width: 850px) {
-    main {
-        margin: 1.5em;
-    }
-}
-
-/* Article and Text Styling */
 article {
-    margin: 20px 0;
-    padding: 10px;
-    border-bottom: 1px solid #fff;
-    padding-bottom: 100px;
-}
-
-article h1::before {
-    content: '.| ';
-}
-
-article h1::after {
-    content: ' |.';
-}
-
-article h3::before {
-    content: '> ';
-}
-
-article h2::before {
-    content: '// '; 
-}
-
-article h4::before {
-    content: '>> ';
-}
-
-h1 {
-    font-size: 1.5em;
+  margin-bottom: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-md);
 }
 
 h2 {
-    font-size: 1.25em;
+  color: var(--color-heading);
+  font-size: var(--font-size-heading);
 }
 
-/* Footer Styling */
 footer {
-    text-align: center;
-    box-sizing: border-box;
-    position: fixed;
-    bottom: 0;
-    padding: 10px 20px;
-    background-color: #000;
-    color: #fff;
-    width: 100%;
+  border-top: 1px dashed var(--color-border);
+  margin-top: var(--space-lg);
+  padding-top: var(--space-sm);
+  font-size: var(--font-size-small);
+  color: var(--color-footer);
 }
 
-/* Blinking Cursor Effect */
-@keyframes blink {
-    50% {
-        border-color: transparent;
-    }
+code {
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-size: var(--font-size-small);
+  line-height: 0.5;
 }
 
-input[type="text"] {
-    font-family: 'Courier New', monospace;
-    font-size: 1em;
-    color: #fff;
-    background: none;
-    border: none;
-    border-bottom: 2px solid #fff;
-    animation: blink 1s step-end infinite;
-}
 
-:not(pre) > code {
-    color: #0BF40F;
-}
