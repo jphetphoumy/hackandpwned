@@ -1,5 +1,5 @@
 <template>
-  <nav class="toc" v-if="articles.length">
+  <nav class="toc" v-if="articles && articles.length">
     <h2>Table of Contents</h2>
     <ul>
       <li
@@ -8,7 +8,7 @@
         :class="{ active: route.path === article._path }"
       >
         <NuxtLink :to="article._path">
-          [0x{{ article.chapter.toString(16).padStart(2, '0') }}] {{ article.title }}
+          [0x{{ (article.chapter || index).toString(16).padStart(2, '0') }}] {{ article.title }}
         </NuxtLink>
       </li>
     </ul>
@@ -17,16 +17,23 @@
 
 <script setup>
 const route = useRoute()
-const issueNumber = route.params.issue || '01'
+// Extract issue number from the route path
+// This handles both '/zine/00' and '/zine/00/article-slug' paths
+const issueMatch = route.path.match(/\/zine\/(\d+)/)
+const issueNumber = issueMatch ? issueMatch[1] : '01'
+
+console.log('Issue number detected:', issueNumber)
 
 const { data: articles } = await useAsyncData(`toc-${issueNumber}`, () =>
   queryContent(`/zine/${issueNumber}`)
     .only(['_path', 'title', 'chapter'])
     .sort({ chapter: 1 })
+    .where({ _path: { $ne: `/zine/${issueNumber}` } }) // Exclude the index file
     .find()
 )
-</script>
 
+console.log('Articles found:', articles.value)
+</script>
 <style scoped>
 .toc {
   margin-bottom: var(--space-lg);
