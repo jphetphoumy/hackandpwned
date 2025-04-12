@@ -1,6 +1,7 @@
 ---
 title: Introduction 
 subtitle: Prompt engineering for Hackers
+description: "Hacking LLm with words, Issue #01"
 chapter: 00
 date: 12/04/2025
 ---

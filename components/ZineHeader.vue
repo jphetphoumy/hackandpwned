@@ -22,11 +22,11 @@ const props = defineProps({
 
 const asciiHeader = computed(() => {
   if (props.variant === 'issue' && props.issueNumber) {
-    return `H A C K A N D   P W N E D   Z I N E\n  Issue #${props.issueNumber} - ${props.subtitle}`
+    return `H A C K A N D P W N E D   Z I N E\n  Issue #${props.issueNumber} - ${props.subtitle}`
   } else if (props.variant === 'about') {
-    return `H A C K A N D   P W N E D\n  About the Operator`
+    return `H A C K A N D P W N E D\n  About the Operator`
   } else {
-    return `H A C K A N D   P W N E D\n  Underground Ops for Blue/Red/Dev/AI`
+    return `H A C K A N D P W N E D\n  Underground Ops for Blue/Red/Dev/AI`
   }
 })
 </script>

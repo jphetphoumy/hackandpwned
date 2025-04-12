@@ -1,5 +1,5 @@
 <template>
-  <nav class="toc" v-if="articles && articles.length">
+  <nav class="toc" v-if="showToc && articles && articles.length">
     <h2>Table of Contents</h2>
     <ul>
       <li
@@ -16,24 +16,38 @@
 </template>
 
 <script setup>
-const route = useRoute()
-// Extract issue number from the route path
-// This handles both '/zine/00' and '/zine/00/article-slug' paths
-const issueMatch = route.path.match(/\/zine\/(\d+)/)
-const issueNumber = issueMatch ? issueMatch[1] : '01'
+const route = useRoute();
 
-console.log('Issue number detected:', issueNumber)
+// Computed properties to reactively determine the current state
+const issueMatch = computed(() => route.path.match(/\/zine\/(\d+)/));
+const issueNumber = computed(() => issueMatch.value ? issueMatch.value[1] : '01');
+const showToc = computed(() => {
+  // Show TOC only on exact zine issue pages like /zine/01, not on /zine or /zine/01/article
+  const zineRegex = /^\/zine\/\d{2}(\/.*)?$/;
+  return zineRegex.test(route.path);
+});
 
-const { data: articles } = await useAsyncData(`toc-${issueNumber}`, () =>
-  queryContent(`/zine/${issueNumber}`)
+// Use a ref for the asyncData key that updates when issueNumber changes
+const asyncDataKey = computed(() => `toc-${issueNumber.value}`);
+
+// Re-fetch articles when the issue number changes
+const { data: articles } = await useAsyncData(
+  asyncDataKey.value, // String key, not a function
+  () => queryContent(`/zine/${issueNumber.value}`)
     .only(['_path', 'title', 'chapter'])
     .sort({ chapter: 1 })
-    .where({ _path: { $ne: `/zine/${issueNumber}` } }) // Exclude the index file
-    .find()
-)
+    //.where({ _path: { $ne: `/zine/${issueNumber.value}` } }) // Exclude the index file
+    .find(),
+  {
+    watch: [issueNumber]
+  }
+);
 
-console.log('Articles found:', articles.value)
+console.log('Issue number detected:', issueNumber.value);
+console.log('Articles found:', articles.value);
+console.log('Should show TOC:', showToc.value);
 </script>
+
 <style scoped>
 .toc {
   margin-bottom: var(--space-lg);
@@ -71,4 +85,3 @@ console.log('Articles found:', articles.value)
   border-radius: 4px;
 }
 </style>
-

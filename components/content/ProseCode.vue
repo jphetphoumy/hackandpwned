@@ -34,65 +34,53 @@ const { copy, copied, text } = useClipboard()
   position: relative;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  overflow: auto;
-  /* Style scrollbar */
-  scrollbar-width: thin;
   border-radius: 0.5rem;
-}
-
-.container::-webkit-scrollbar {
-  width: 8px; /* width of the entire scrollbar */
-}
-
-.container::-webkit-scrollbar-track {
-  background: #2e2e2e; /* color of the track (part the scrollbar can move within) */
-  border-radius: 10px; /* roundness of the track */
-}
-
-.container::-webkit-scrollbar-thumb {
-  background-color: #555; /* color of the scrollbar itself */
-  border-radius: 10px; /* roundness of the scrollbar */
-  border: 2px solid #1e1e1e; /* Creates a border around the scrollbar */
-}
-
-.container::-webkit-scrollbar-thumb:hover {
-  background: #666; /* color of the scrollbar when hovered */
-}
-
-.container {
-  scrollbar-width: thin; /* "auto" or "thin" */
-  scrollbar-color: #555 #2e2e2e; /* thumb and track color */
-}
-
-
-.filename-text {
-  position: absolute;
-  top: .5em;
-  left: 1em;
-  color: white;
-  font-size: 14px;
+  overflow: hidden; /* Fix for scroll overflow glitch */
 }
 
 .copy-container {
-    padding: .3em .3em .3em 10px; /* top right bottom left */
-    background: #343434;
-    display: flex;
-    justify-content: space-between;
+  background: #343434;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.3em 1em;
+  border-bottom: 1px solid #2e2e2e;
+}
+
+.copy-container button {
+  cursor: pointer;
+  background: none;
+  color: inherit;
+  border: none;
+  font-family: inherit;
+  font-size: 0.9rem;
 }
 
 .copy-button {
-    display: flex;
-}
-.copy-container button {
-    cursor: pointer;
-    background: none;
-    color: inherit;
-    border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.25em;
 }
 
+/* Ensures the <pre> scrolls inside its container */
 :deep(pre) {
-    padding-left: 1em;
-    padding-right: 1em;
+  background: transparent;
+  margin: 0;
+  padding: 1em;
+  overflow-x: auto;
+  white-space: pre; /* Keep formatting */
+  word-wrap: normal;
+  font-size: 0.875rem;
 }
+
+/* Optional: clean up scrollbar inside the code box */
+:deep(pre::-webkit-scrollbar) {
+  height: 8px;
+}
+:deep(pre::-webkit-scrollbar-thumb) {
+  background: #555;
+  border-radius: 10px;
+}
+
 </style>
 
