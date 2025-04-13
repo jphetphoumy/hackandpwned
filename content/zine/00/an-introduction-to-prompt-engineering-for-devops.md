@@ -3,6 +3,7 @@ title: "An introduction to prompt engineering for devops"
 subtitle: "Entrypoint" 
 date: 12-04-2025
 chapter: 3
+published: false 
 ---
 
 # An introduction to prompt engineering for devops

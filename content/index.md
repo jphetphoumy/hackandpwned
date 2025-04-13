@@ -3,18 +3,22 @@ title: 'Welcome on Hackandpwned'
 description: 'Home'
 ---
 
-# Welcome
+# 🌀 Welcome to Hackandpwned
 
-Welcome to Hackandpwned ! Here I will write about what I love. **Devops and Hacking**.
+This is my digital playground—where DevOps, Hacking, and AI collide.
 
-If you like the following topic : 
+Whether you’re into breaking systems, automating everything, or pushing LLMs to their limits, you’ll feel right at home.
 
-- **Hacking**
-- **Devops**
-- **LLM**
+If you're passionate about:
 
-This place is for you ! 
+- 🛠️ DevOps & Automation
 
-You can read my latest post here : [articles](/articles)
+- 🧠 AI, LLMs & Prompt Engineering
 
-Happy hacking ;)
+- 🐚 Red/Blue Team Tactics on Linux
+
+Then this space is for you.
+
+- 💡 Start exploring: [zine](/zine) 
+
+Hack with purpose. Build with intent. Stay curious.
